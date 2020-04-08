@@ -15,4 +15,4 @@ hour = time // 3600
 minute = (time - hour * 3600) // 60
 second = time - minute * 60 - hour * 3600
 
-print(f'Введнные {time} секунд это {hour}:{minute}:{second}')
+print(f'Введнные {time} секунд это {hour:>02}:{minute:>02}:{second:>02}')

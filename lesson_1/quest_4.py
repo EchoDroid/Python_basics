@@ -18,7 +18,7 @@ while True:
 max_num = 0
 i = 0
 while i < len(user_str):
-    if max_num < int(user_str[i]):
+    if int(user_str[i]) - max_num + abs(int(user_str[i]) - max_num):
         max_num = int(user_str[i])
 
     i += 1
