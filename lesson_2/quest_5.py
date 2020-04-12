@@ -24,14 +24,6 @@ while True:
         el_ind = my_list.index(user_num)
         my_list.insert(el_ind + el_count, user_num)
     else:
-        tmp_num = user_num - 1
-        while tmp_num > 0:
-            el_count = my_list.count(tmp_num)
-            if el_count:
-                el_ind = my_list.index(tmp_num)
-                my_list.insert(el_ind, user_num)
-                break
-            tmp_num -= 1
-        else:
-            my_list.append(user_num)
+        my_list.append(user_num)
+        my_list.sort(reverse=True)
     print(my_list)

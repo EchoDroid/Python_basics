@@ -17,7 +17,7 @@ while len(my_list) < i_stop:
     user_tmp = input(f'Введите элемент списка № {len(my_list)}\n')
     my_list.append(user_tmp)
 
-# my_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+# my_list = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 # i_stop = len(my_list)
 
 if i_stop % 2:
@@ -28,10 +28,9 @@ else:
 print(f'Список до перестановки {my_list}')
 
 i = 0
-while i < i_stop:
+for i in range(0, i_stop, 2):
     tmp = my_list[i]
     my_list[i] = my_list[i+1]
     my_list[i+1] = tmp
-    i += 2
 
 print(f'Список после перестановки {my_list}')
