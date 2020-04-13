@@ -6,5 +6,5 @@
 user_str = input('Введите строку из нескольких слов:\n')
 list_str = user_str.split(' ')
 
-for i in list_str:
-    print(f'{list_str.index(i)} {i[:10]}')
+for i, itr in enumerate(list_str):
+    print(f'{i} {itr[:10]}')
