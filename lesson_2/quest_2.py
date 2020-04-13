@@ -20,17 +20,10 @@ while len(my_list) < i_stop:
 # my_list = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 # i_stop = len(my_list)
 
-if i_stop % 2:
-    i_stop -= 2
-else:
-    i_stop -= 1
+i_stop = (i_stop - 1, i_stop - 2)[i_stop % 2]
 
 print(f'Список до перестановки {my_list}')
-
-i = 0
 for i in range(0, i_stop, 2):
-    tmp = my_list[i]
-    my_list[i] = my_list[i+1]
-    my_list[i+1] = tmp
+    my_list[i], my_list[i+1] = my_list[i+1], my_list[i]
 
 print(f'Список после перестановки {my_list}')
