@@ -20,6 +20,9 @@
 }
 """
 
+import time
+
+"""
 # Запрашиваем у пользователя стуктуру данных
 key_list = []
 while True:
@@ -92,12 +95,65 @@ while counter < data_count:
         data_summary.append((counter + 1, temp_dict))
     counter += 1
 print('data_tuple', data_summary)
+"""
+data_summary = [(1, {'название': 'компьютер', 'цена': 20000, 'количество': 5, 'eд': 'шт.'}),
+                (2, {'название': 'принтер', 'цена': 6000, 'количество': 2, 'eд': 'шт.'}),
+                (3, {'название': 'сканер', 'цена': 2000, 'количество': 7, 'eд': 'шт.'})]
 
-new_dict = {key: set() for key in key_list}
-for imt in data_summary:
-    for i in range(data_len):
-        # tmp = new_dict.get(key_list[i])
-        # tmp.add(imt[1].get(key_list[i]))
-        # new_dict.setdefault(key_list[i], tmp)
-        new_dict.get(key_list[i]).add(imt[1].get(key_list[i]))
-print(new_dict)
+avg_keys_time = 0.0
+avg_analytics_time = 0.0
+
+for i in range(1000000):
+
+    time_start = time.time() * 10**6
+
+# Создание списка ключей с использованием set ~0.99 нс
+    key_list = set()
+    for imt in data_summary:
+        key_list.update(imt[1].keys())
+    key_list = list(key_list)
+
+# Создание списка ключей только с list ~1.68 нс
+    # key_list = []
+    # for imt in data_summary:
+    #     for key in imt[1].keys():
+    #         if not key_list.count(key):
+    #             key_list.append(key)
+
+    time_end = time.time() * 10**6
+    # print(f'Создание списка ключей {time_end - time_start} нс')
+    avg_keys_time += time_end - time_start
+
+    time_start = time.time() * 10**6
+
+# Аналитика с использованием set ~3.54 нс
+    data_len = len(data_summary)
+    # new_dict = {key: set() for key in key_list}
+    # for data in data_summary:
+    #     for key in key_list:
+    #         new_dict.get(key).add(data[1].get(key))
+    # print(new_dict)
+# Аналитика только с list ~5.24 нс
+    # new_dict = {key: [] for key in key_list}
+    # for data in data_summary:
+    #     for key in key_list:
+    #         if not new_dict.get(key).count(data[1].get(key)):
+    #             new_dict.get(key).append(data[1].get(key))
+    # print(new_dict)
+# Аналитика только с list и in ~4.78 нс
+    new_dict = {key: [] for key in key_list}
+    for data in data_summary:
+        for key in key_list:
+            if not (data[1].get(key) in new_dict.get(key)):
+                new_dict.get(key).append(data[1].get(key))
+    # print(new_dict)
+
+    time_end = time.time() * 10**6
+    # print(f'Аналитика {time_end - time_start} нс')
+    avg_analytics_time += time_end - time_start
+
+avg_keys_time /= 1000000
+avg_analytics_time /= 1000000
+
+print(f'Создание списка ключей в среднем {avg_keys_time} нс')
+print(f'Аналитика в среднем {avg_analytics_time} нс')

@@ -19,11 +19,16 @@ while True:
             break
         print('Ошибка при вводе, введите число!')
 
-    el_count = my_list.count(user_num)
-    if el_count:
+    if user_num in my_list:
         el_ind = my_list.index(user_num)
+        el_count = my_list.count(user_num)
         my_list.insert(el_ind + el_count, user_num)
     else:
-        my_list.append(user_num)
-        my_list.sort(reverse=True)
+        for imt in my_list[:]:
+            if user_num > imt:
+                el_ind = my_list.index(imt)
+                my_list.insert(el_ind, user_num)
+                break
+        else:
+            my_list.append(user_num)
     print(my_list)
