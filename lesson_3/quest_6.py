@@ -6,3 +6,19 @@
 использовать написанную ранее функцию ​ int_func()​ .
 
 """
+
+
+def str_letter_up(my_str):
+    return my_str if my_str == '' else ''.join([my_str[0].upper(), my_str[1:]])
+
+
+def str_all_up(my_str):
+    tmp_list = my_str.split(' ')
+    tmp_new = []
+    for itr in tmp_list:
+        tmp_new.append(str_letter_up(itr))
+    return ' '.join(tmp_new)
+
+
+print(str_letter_up('text'))
+print(str_all_up('my some text'))
