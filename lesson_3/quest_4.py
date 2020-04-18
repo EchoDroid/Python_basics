@@ -18,10 +18,10 @@ def try_type(var, var_type):
 
 
 def my_func_pow(x, y):
-    res_2 = x
+    res_2 = 1
     for i in range(abs(y) - 1):
         res_2 *= x
-    return x**y, res_2 if y > 0 else 1/res_2
+    return x**y, res_2 if y >= 0 else 1/res_2
 
 
 while True:
