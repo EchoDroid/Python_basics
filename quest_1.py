@@ -2,3 +2,11 @@
 платы сотрудника. В расчете необходимо использовать формулу: (выработка в часах*ставка в
 час) + премия. Для выполнения расчета для конкретных значений необходимо запускать
 скрипт с параметрами. """
+
+
+from sys import argv
+import my_service
+
+script_name, total_time, payment, benefit = argv
+
+print(int(total_time) * int(payment) + int(benefit))
