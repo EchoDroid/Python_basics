@@ -3,4 +3,9 @@
 Подсказка: использовать функцию ​ range()​ и генератор. """
 
 
-print(sorted([el for el in range(20, 239, 20)] + [el for el in range(21, 239, 21)]))
+print('\nКратные 20')
+print([el for el in range(20, 239, 20)])
+print('\nКратные 21')
+print([el for el in range(20, 239) if el % 21 == 0])
+print('\nКратные 20 и 21')
+print([el for el in range(20, 239) if (el % 21 == 0) or (el % 20 == 0)])

@@ -5,8 +5,11 @@
 
 
 from sys import argv
-import my_service
+from excluded.my_service import try_type
 
-script_name, total_time, payment, benefit = argv
+script_name, total_time, payment, benefit, *_ = argv
 
-print(int(total_time) * int(payment) + int(benefit))
+if try_type(int, total_time, payment, benefit):
+    print(int(total_time) * int(payment) + int(benefit))
+else:
+    print('Введите три числа через пробел')
