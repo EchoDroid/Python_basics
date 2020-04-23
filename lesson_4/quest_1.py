@@ -9,7 +9,7 @@ from excluded.my_service import try_type
 
 script_name, total_time, payment, benefit, *_ = argv
 
-if try_type(int, total_time, payment, benefit):
-    print(int(total_time) * int(payment) + int(benefit))
+if try_type(float, total_time, payment, benefit):
+    print(round(float(total_time) * float(payment) + float(benefit), 2))
 else:
     print('Введите три числа через пробел')
