@@ -8,3 +8,38 @@ running ​ (запуск). Атрибут реализовать как при�
 Задачу можно усложнить, реализовав проверку порядка режимов, и при его нарушении
 выводить соответствующее сообщение и завершать скрипт.
 """
+
+
+from time import sleep
+
+
+class TrafficLight:
+    __color = ''
+    _on = False
+
+    def __init__(self):
+        print('Экземпляр класса TrafficLight успешно создан')
+
+    def turn_color(self, color: str):
+        self.__color = color
+        print(self.__color)
+
+    def on_traffic_light(self):
+        self._on = True
+        # while self._on:
+        self.__color = 'красный'
+        print(self.__color)
+        sleep(7)
+        self.__color = 'жёлтый'
+        print(self.__color)
+        sleep(2)
+        self.__color = 'зелёный'
+        print(self.__color)
+        sleep(5)
+
+    def off_traffic_light(self):
+        self._on = False
+
+
+my_lighter = TrafficLight()
+my_lighter.on_traffic_light()
