@@ -14,10 +14,9 @@ from time import sleep
 
 
 class TrafficLight:
-    __color = ''
-    _on = False
-
     def __init__(self):
+        self.__color = ''
+        self._on = False
         print('Экземпляр класса TrafficLight успешно создан')
 
     def turn_color(self, color: str):

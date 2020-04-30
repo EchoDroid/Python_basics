@@ -9,19 +9,14 @@ name, surname, position (должность), income (доход). Послед�
 
 
 class Worker:
-    _name = ''
-    _surname = ''
-    _position = ''
-    _income = {}
-
-
-class Position(Worker):
     def __init__(self, name: str, surname: str, position: str, salary: float, bonus: float):
         self._name = name
         self._surname = surname
         self._position = position
         self._income = {'salary': salary, 'bonus': bonus}
 
+
+class Position(Worker):
     def get_full_name(self):
         return self._name + ' ' + self._surname
 
