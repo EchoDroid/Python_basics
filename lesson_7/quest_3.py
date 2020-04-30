@@ -26,3 +26,38 @@ make_order() ​ вернет строку: ​ *****\n*****\n**​
 Или, количество ячеек клетки равняется 15, количество ячеек в ряду — 5. Тогда метод
 make_order() ​ вернет строку: ​ *****\n*****\n*****
 """
+
+
+class Cell:
+    def __init__(self, count: int):
+        self.count = count
+
+    def __add__(self, other):
+        return Cell(self.count + other.count)
+
+    def __sub__(self, other):
+        return Cell(self.count - other.count) if self.count - other.count > 0 else print('Разность меньше нуля!')
+
+    def __mul__(self, other):
+        return Cell(self.count * other.count)
+
+    def __truediv__(self, other):
+        return Cell(self.count // other.count) if self.count // other.count > 0 else print('Результат деления == 0!')
+
+    def __str__(self):
+        return f'Клетка из {self.count} ячеек'
+
+    def make_order(self, row: int):
+        return ('*' * row + '\n') * (self.count // row) + '*' * (self.count % row)
+
+
+c1 = Cell(3)
+c2 = Cell(5)
+c3 = Cell(23)
+
+print(c1 + c2)
+print(c1 - c2)
+print(c1 * c2)
+print(c1 / c2)
+print(c2 / c1)
+print(c3.make_order(10))
