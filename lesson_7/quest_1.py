@@ -28,7 +28,8 @@ class Matrix:
         return self.__data
 
     def __str__(self):
-        return '\n'.join(' '.join(map(str, itr)) for itr in self.data)
+        len_itm = len(str(max((max(itr) for itr in self.__data))))
+        return '\n'.join(' '.join(f'{str(jtr):>{len_itm}}' for jtr in itr) for itr in self.data)
 
     def __add__(self, other):
         if len(self.data) != len(other.data) or len(self.data[0]) != len(other.data[0]):    # Если матрицы разные
@@ -39,8 +40,8 @@ class Matrix:
 
 
 mat_1 = Matrix([[1, 1, 1, 1, 6],
-                [2, 2, 2, 1, 2],
-                [3, 3, 3, 1, 3]])
+                [10, 2, 2, 1, 2],
+                [3, 3, 1500, 1, 3]])
 mat_2 = Matrix([[3, 3, 3, 2, 9],
                 [2, 2, 2, 2, 7],
                 [1, 1, 1, 2, 5]])
