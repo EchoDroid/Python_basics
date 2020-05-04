@@ -5,22 +5,27 @@
 месяца и года (например, месяц — от 1 до 12). Проверить работу полученной структуры на
 реальных данных."""
 
+# Приняты дополнительные условия:
+#   1. Объект класса хранит день, месяц и год
+#   2. Функция извлечения даты в формате "int" записывает её в переменные класса и возвращает None
+#   3. Функция провекти даты принимает три аргумента, по умолчанию 0 - то производится проверка даты класса
+
 
 class Data:
-    def __init__(self, data: str):
-        self.str_data = data
-        if Data.validate_str(data):
-            self.day, self.month, self.year = Data.get_int_date(data)
+    __day = 1
+    __month = 1
+    __year = 1
+
+    @classmethod
+    def get_int_date(cls, str_data: str):
+        if cls.__validate_str(str_data):
+            tmp_list = [int(el) for el in str_data.split('-')]
+            cls.__day, cls.__month, cls.__year = tmp_list
         else:
-            self.day = self.month = self.year = 0
+            print(f'In class {cls.__name__} in functions {cls.get_int_date.__name__} data non valid!')
 
     @staticmethod
-    def get_int_date(str_data: str):
-        tmp_list = str_data.split('-')
-        return int(tmp_list[0]), int(tmp_list[1]), int(tmp_list[2])
-
-    @staticmethod
-    def validate_str(str_data: str):
+    def __validate_str(str_data: str):
         tmp_list = str_data.split('-')
         if len(tmp_list) != 3:
             return False
@@ -30,7 +35,14 @@ class Data:
             return False
 
     @staticmethod
-    def validate_data(day: int, month: int, year: int):
+    def validate_data(day=0, month=0, year=0):
+        if not day:
+            day = Data.__day
+        if not month:
+            month = Data.__month
+        if not year:
+            year = Data.__year
+
         if not 0 < month < 13:
             return False
         is_leap = False
@@ -50,13 +62,14 @@ class Data:
             return 0 < day < 29
 
 
-md1 = Data('10-11-1998')
-md2 = Data('10-111998')
-print(Data.validate_data(31, 11, 1998))
-print(Data.validate_data(30, 11, 1998))
-print(Data.validate_data(30, 2, 2000))
-print(Data.validate_data(29, 2, 2000))
-print(Data.validate_data(29, 2, 1999))
-print(Data.validate_data(29, 2, 400))
-print(Data.validate_data(29, 2, 401))
-print()
+Data.get_int_date('10-11-1998')
+print(Data.validate_data())
+Data.get_int_date('29-02-2000')
+print(Data.validate_data())
+Data.get_int_date('29-02-400')
+print(Data.validate_data())
+Data.get_int_date('31-12-2020')
+print(Data.validate_data())
+Data.get_int_date('32-13-1200')
+print(Data.validate_data(15, 6, 2019))
+print(1)
