@@ -10,3 +10,31 @@
 типа элемента и вносить его в список, только если введено число. Класс-исключение должен
 не позволить пользователю ввести текст (не число) и отобразить соответствующее
 сообщение. При этом работа скрипта не должна завершаться. """
+
+
+class NonDigitExec(Exception):
+    def __init__(self, msg):
+        self.msg = msg
+
+    def __str__(self):
+        return self.msg
+
+
+my_num_list = []
+while True:
+    tmp_str = input('Введите любое число\n')
+    try:
+        if not tmp_str.count('.') and tmp_str.isdigit():
+            my_num_list.append(int(tmp_str))
+        elif tmp_str.count('.') < 2 \
+                and not len(tmp_str[:tmp_str.find('.')]) or tmp_str[:tmp_str.find('.')].isdigit() \
+                and not len(tmp_str[tmp_str.find('.')+1:]) or tmp_str[tmp_str.find('.')+1:].isdigit():
+            my_num_list.append(float(tmp_str))
+        elif tmp_str.lower() == 'stop':
+            break
+        else:
+            raise NonDigitExec(f'Ошибка преобразования! Строка {tmp_str} не является числом')
+    except NonDigitExec as err:
+        print(NonDigitExec)
+
+print(my_num_list)
