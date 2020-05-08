@@ -6,10 +6,10 @@
 
 class DivByZeroException(Exception):
     def __init__(self, notice):
-        self.notice = notice
+        self.__notice = notice
 
     def __str__(self):
-        return self.notice
+        return self.__notice
 
 
 a = 5

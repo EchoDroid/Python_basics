@@ -4,11 +4,26 @@
 параметры, общие для приведенных типов. В классах-наследниках реализовать параметры,
 уникальные для каждого типа оргтехники. """
 
-from abc import ABC, abstractmethod, abstractproperty
+from abc import ABC, abstractmethod
 
-class MyNameExec(Exception):
-    def __str__(self):
-        return 'Ошибка при вводе данных! Имя должно быть типа str!'
+
+# class MyValueExec(Exception):
+#     __msg = ''
+#
+#     def __int__(self, msg):
+#         MyValueExec.__msg = msg
+#
+#     def __str__(self):
+#         return self.__msg
+#
+#
+# class MyValidateExec(Exception):
+#     def __init__(self, msg):
+#         self.__msg = msg
+#
+#     def __str__(self):
+#         return self.__msg
+
 
 class Warehouse:
     def __init__(self, name):
@@ -20,64 +35,20 @@ class Warehouse:
 
 
 class OfficeEquipment(ABC):
-    def __init__(self, s_name, s_type, f_weight, f_volume, any_info=None) -> None:
-        pass
+    def __init__(self, s_name, s_type, f_weight, f_volume, any_info=None):
+        self.__name = s_name
+        self.__type = s_type
+        self.__weight = f_weight
+        self.__volume = f_volume
+        self.__any_info = any_info
 
-    def __str__(self) -> str:
-        pass
-
-    @abstractmethod
-    @property
-    def name(self) -> str:
-        pass
-
-    @abstractmethod
-    @name.setter
-    def name(self, other) -> None:
-        pass
+    def __str__(self):
+        return f'{self.__type} "{self.__name}"'
 
     @abstractmethod
-    @property
-    def type(self) -> str:
+    def __eq__(self, other) -> bool:
         pass
 
-    @abstractmethod
-    @type.setter
-    def type(self, other) -> None:
-        pass
-
-    @abstractmethod
-    @property
-    def weight(self) -> float:
-        pass
-
-    @abstractmethod
-    @weight.setter
-    def weight(self, other) -> None:
-        pass
-
-    @abstractmethod
-    @property
-    def volume(self) -> float:
-        pass
-
-    @abstractmethod
-    @volume.setter
-    def volume(self, other) -> None:
-        pass
-
-    @abstractmethod
-    @property
-    def any_info(self) -> dict:
-        pass
-
-    @abstractmethod
-    @any_info.setter
-    def any_info(self, other) -> None:
-        pass
-
-
-class Printer(OfficeEquipment):
     @property
     def name(self):
         return self.__name
@@ -85,7 +56,8 @@ class Printer(OfficeEquipment):
     @name.setter
     def name(self, other):
         if type(other) != str:
-            raise MyNameExec
+            # raise MyValueExec(str)
+            pass
         self.__name = other
 
     @property
@@ -95,7 +67,8 @@ class Printer(OfficeEquipment):
     @type.setter
     def type(self, other):
         if type(other) != str:
-            raise MyNameExec
+            # raise MyValueExec(str)
+            pass
         self.__type = other
 
     @property
@@ -105,7 +78,8 @@ class Printer(OfficeEquipment):
     @weight.setter
     def weight(self, other):
         if type(other) != float or type(other) != int:
-            raise MyNameExec
+            # raise MyValueExec(float, int)
+            pass
         self.__weight = other
 
     @property
@@ -115,7 +89,8 @@ class Printer(OfficeEquipment):
     @volume.setter
     def volume(self, other):
         if type(other) != float or type(other) != int:
-            raise MyNameExec
+            # raise MyValueExec(float, int)
+            pass
         self.__volume = other
 
     @property
@@ -126,5 +101,58 @@ class Printer(OfficeEquipment):
     def any_info(self, other):
         self.__any_info = other
 
-a = Printer('n', 't', 1, 1)
+
+class Printer(OfficeEquipment):
+    def __eq__(self, other):
+        pass
+
+
+class Scanner(OfficeEquipment):
+    def __init__(self, s_name, s_type, f_weight, f_volume, i_scan_speed, any_info=None):
+        super().__init__(s_name, s_type, f_weight, f_volume, any_info)
+        self.__scan_speed = i_scan_speed
+
+    def __eq__(self, other):
+        if type(self) != type(other):
+            # raise ValueError
+            return False
+        elif self.name == other.name \
+                and self.type == other.type \
+                and self.volume == other.volume \
+                and self.weight == other.weight \
+                and self.scan_speed == other.scan_speed:
+            return True
+        else:
+            return False
+
+    @property
+    def scan_speed(self):
+        return self.__scan_speed
+
+    @scan_speed.setter
+    def scan_speed(self, other):
+        if type(other) != int:
+            # raise MyValueExec(float, int)
+            pass
+        elif other <= 0:
+            # raise MyValidateExec(f'Для {self.type} "{self.name}" значение атрибута "scan_speed" должно быть > 0')
+            pass
+        else:
+            self.__scan_speed = other
+
+
+class Copier(OfficeEquipment):
+    def __eq__(self, other):
+        pass
+
+
+p1 = Scanner('Xerox', 'Simple scanner', 0.5, 2, 10)
+p2 = Scanner('Xerox', 'Simple scanner', 0.5, 2, 10)
+p3 = Scanner('Epson', 'another scanner', 1.6, 4, 30)
+print(p1)
+print(type(p1))
+print(type(p2))
+print(f'p1 == p2: {p1 == p2}')
+print(f'p2 == p3: {p2 == p3}')
+print(f'p2 == 23: {p2 == 23}')
 print(1)
